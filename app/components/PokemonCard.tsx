@@ -9,23 +9,21 @@ import {
 
 type PokemonCardProps = {
    name: string;
-   description: string;
+   id: string;
+   sprite: string;
 };
 
 const PokemonCard = (props: PokemonCardProps) => {
    return (
-      <div className="w-64 flex">
-         <Card>
+      <div className="w-44 h-48 flex">
+         <Card className="w-full h-full ">
             <CardHeader>
                <CardTitle>{props.name}</CardTitle>
-               <CardDescription>{props.description}</CardDescription>
+               <CardDescription>Pokemon id: {props.id}</CardDescription>
             </CardHeader>
-            <CardContent>
-               <p></p>
+            <CardContent className="flex justify-center items-center">
+               <img src={props.sprite} alt="pokemon-not found" />
             </CardContent>
-            <CardFooter>
-               <p>Card Footer</p>
-            </CardFooter>
          </Card>
       </div>
    );

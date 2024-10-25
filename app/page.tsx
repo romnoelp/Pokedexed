@@ -11,16 +11,21 @@ import {
 } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import PokemonCard from "./components/PokemonCard";
 
 type PokemonData = {
    name: string;
+   id: string;
    height: number;
    weight: number;
 };
+
 const Home = () => {
    const [searchedPokemon, setSearchedPokemon] = useState("");
-   const [pokemonResult, setPokmonResult] = useState<PokemonData>();
-
+   const [pokemonResult, setPokemonResult] = useState<
+      PokemonData | undefined
+   >();
+   const [pokemonSprite, setPokemonSprite] = useState("");
    const handleSearchPokemon = (value: string) => {
       setSearchedPokemon(value);
    };
@@ -29,20 +34,27 @@ const Home = () => {
       const fetchPokemon = async () => {
          try {
             const response = await fetch(
-               `https://pokeapi.co/api/v2/pokemon/${searchedPokemon}`
+               `https://pokeapi.co/api/v2/pokemon/${searchedPokemon.toLowerCase()}`
             );
 
             if (!response.ok) {
-               throw new Error("Can't find the pokemon you provided");
+               throw new Error("Can't find the Pokémon you provided");
             }
 
             const data = await response.json();
-            setPokmonResult(data);
+            setPokemonResult({
+               id: data.id,
+               name: data.name,
+               height: data.height,
+               weight: data.weight,
+            });
+            setPokemonSprite(data.sprites.front_default);
          } catch (error) {
             console.error(error);
          }
       };
-      fetchPokemon();
+
+      if (searchedPokemon) fetchPokemon();
    }, [searchedPokemon]);
 
    return (
@@ -58,22 +70,12 @@ const Home = () => {
                   </CardDescription>
                </CardHeader>
                <CardContent>
-                  <ScrollArea className="h-72 w-full rounded-md border">
-                     {pokemonResult ? (
-                        <div>
-                           <p>
-                              <strong>Name:</strong> {pokemonResult.name}
-                           </p>
-                           <p>
-                              <strong>Height:</strong> {pokemonResult.height}
-                           </p>
-                           <p>
-                              <strong>Weight:</strong> {pokemonResult.weight}
-                           </p>
-                        </div>
-                     ) : (
-                        <p>No Pokémon found.</p>
-                     )}
+                  <ScrollArea className="h-72 w-full rounded-md border p-4 flex">
+                     <PokemonCard
+                        name={pokemonResult ? pokemonResult.name : ""}
+                        id={pokemonResult ? pokemonResult.id : ""}
+                        sprite={pokemonResult ? pokemonSprite : ""}
+                     />
                   </ScrollArea>
                </CardContent>
                <CardFooter>
