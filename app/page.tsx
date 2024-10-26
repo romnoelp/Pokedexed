@@ -38,7 +38,7 @@ const Home = () => {
             );
 
             if (!response.ok) {
-               throw new Error("Can't find the Pokémon you provided");
+               throw new Error("Can&apost find the Pokémon you provided");
             }
 
             const data = await response.json();
@@ -67,7 +67,7 @@ const Home = () => {
                   {pokemonResult ? (
                      <>
                         <CardTitle>
-                           Here's the Pokémon/s you searched:
+                           Here&aposs the Pokémon/s you searched:
                         </CardTitle>
                         <CardDescription>
                            The pokedex will show you various information about
@@ -77,7 +77,7 @@ const Home = () => {
                   ) : (
                      <>
                         <CardTitle>
-                           You haven't searched for anything yet.
+                           You haven&apost searched for anything yet.
                         </CardTitle>
                         <CardDescription>
                            For the meantime, here are some pokemons that might
