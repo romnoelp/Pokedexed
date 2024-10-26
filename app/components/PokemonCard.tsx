@@ -16,7 +16,7 @@ type PokemonCardProps = {
 const PokemonCard = (props: PokemonCardProps) => {
    return (
       <div className="w-44 h-48 flex">
-         <Card className="w-full h-full ">
+         <Card className="w-full h-full">
             <CardHeader>
                <CardTitle>{props.name}</CardTitle>
                <CardDescription>Pokemon id: {props.id}</CardDescription>

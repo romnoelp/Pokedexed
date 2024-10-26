@@ -45,7 +45,7 @@ const PokemonList = () => {
 
    useEffect(() => {
       fetchPokemonList();
-   }, [pokemonLimit, pokemonOffset]);
+   }, [pokemonLimit, pokemonOffset]); // Correct dependencies
 
    return (
       <div className="flex flex-wrap gap-4 h-full">

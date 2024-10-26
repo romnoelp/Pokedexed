@@ -55,7 +55,7 @@ const Home = () => {
       };
 
       if (searchedPokemon) fetchPokemon();
-   }, [searchedPokemon]);
+   }, [searchedPokemon]); // Correct dependency
 
    return (
       <div className="flex p-6 sm:p-12 h-screen overflow-hidden">
@@ -81,7 +81,7 @@ const Home = () => {
                         </CardTitle>
                         <CardDescription>
                            For the meantime, here are some pokemons that might
-                           peek your interest.
+                           pique your interest.
                         </CardDescription>
                      </>
                   )}
