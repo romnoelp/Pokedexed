@@ -1,9 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import {
-   Button
-   
- } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 type SearchBarProps = {
    onSearch: (value: string) => void;
@@ -29,7 +26,9 @@ const SearchBar = (props: SearchBarProps) => {
             value={input}
             onChange={handleInputChange}
          />
-         <Button onClick={handleSearchClick}>Search</Button>
+         <Button className="w-36" onClick={handleSearchClick}>
+            Search
+         </Button>
       </div>
    );
 };

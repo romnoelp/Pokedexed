@@ -2,10 +2,10 @@ import {
    Card,
    CardContent,
    CardDescription,
-   CardFooter,
    CardHeader,
    CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
 
 type PokemonCardProps = {
    name: string;
@@ -22,7 +22,16 @@ const PokemonCard = (props: PokemonCardProps) => {
                <CardDescription>Pokemon id: {props.id}</CardDescription>
             </CardHeader>
             <CardContent className="flex justify-center items-center">
-               <img src={props.sprite} alt="pokemon-not found" />
+               {props.sprite ? (
+                  <Image
+                     src={props.sprite}
+                     alt={`${props.name} sprite`}
+                     width={96}
+                     height={96}
+                  />
+               ) : (
+                  <p>Sprite not available</p>
+               )}
             </CardContent>
          </Card>
       </div>

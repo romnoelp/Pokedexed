@@ -12,6 +12,7 @@ import {
 import { useEffect, useState } from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import PokemonCard from "./components/PokemonCard";
+import PokemonList from "./components/PokemonList";
 
 type PokemonData = {
    name: string;
@@ -22,6 +23,8 @@ type PokemonData = {
 
 const Home = () => {
    const [searchedPokemon, setSearchedPokemon] = useState("");
+   const [pokemonLimit, setPokemonLimit] = useState(20);
+   const [pokemonOffset, setPokemonOffset] = useState(0);
    const [pokemonResult, setPokemonResult] = useState<
       PokemonData | undefined
    >();
@@ -58,28 +61,32 @@ const Home = () => {
    }, [searchedPokemon]);
 
    return (
-      <div className="flex p-12">
+      <div className="flex p-12 h-screen">
          <div className="flex flex-col w-full gap-4">
             <h1 className="text-3xl font-bold">Pokedexed</h1>
             <SearchBar onSearch={handleSearchPokemon} />
-            <Card>
+            <Card className="h-full flex flex-col">
                <CardHeader>
                   <CardTitle>Here's the Pokemon/s you searched:</CardTitle>
                   <CardDescription>
                      The pokedex will show you various information about them.
                   </CardDescription>
                </CardHeader>
-               <CardContent>
-                  <ScrollArea className="h-72 w-full rounded-md border p-4 flex">
-                     <PokemonCard
-                        name={pokemonResult ? pokemonResult.name : ""}
-                        id={pokemonResult ? pokemonResult.id : ""}
-                        sprite={pokemonResult ? pokemonSprite : ""}
-                     />
+               <CardContent className="flex-1 flex">
+                  <ScrollArea className="h-full w-full rounded-md border p-4">
+                     {pokemonResult ? (
+                        <PokemonCard
+                           name={pokemonResult ? pokemonResult.name : ""}
+                           id={pokemonResult ? pokemonResult.id : ""}
+                           sprite={pokemonResult ? pokemonSprite : ""}
+                        />
+                     ) : (
+                        <PokemonList />
+                     )}
                   </ScrollArea>
                </CardContent>
                <CardFooter>
-                  <p className="font-thin text-sm">Powered by Pokenode-ts</p>
+                  <p className="font-thin text-sm">Powered by PokeAPI.co</p>
                </CardFooter>
             </Card>
          </div>
