@@ -22,7 +22,7 @@ const SearchBar = (props: SearchBarProps) => {
          <Input
             id="search-pokemon"
             type="text"
-            placeholder="What pokemon are you looking for?"
+            placeholder="pikachu..."
             value={input}
             onChange={handleInputChange}
          />

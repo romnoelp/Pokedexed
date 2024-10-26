@@ -59,7 +59,7 @@ const Home = () => {
 
    return (
       <div className="flex p-6 sm:p-12 h-screen overflow-hidden">
-         <div className="flex flex-col w-full gap-4 h-full">
+         <div className="flex flex-col w-full gap-4 h-full w-full">
             <h1 className="text-3xl font-bold">Pokedexed</h1>
             <SearchBar onSearch={handleSearchPokemon} />
             <Card className="h-full flex flex-col">
