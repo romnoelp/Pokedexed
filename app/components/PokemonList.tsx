@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import PokemonCard from "./PokemonCard";
 
 type Pokemon = {
@@ -8,13 +8,13 @@ type Pokemon = {
 };
 
 const PokemonList = () => {
-   const [pokemonLimit, setPokemonLimit] = useState(50);
-   const [pokemonOffset, setPokemonOffset] = useState(0);
    const [retrievedPokemonList, setRetrievedPokemonList] = useState<Pokemon[]>(
       []
    );
+   const pokemonLimit = 50; // Fixed limit
+   const pokemonOffset = 0; // Fixed offset
 
-   const fetchPokemonList = async () => {
+   const fetchPokemonList = useCallback(async () => {
       try {
          const response = await fetch(
             `https://pokeapi.co/api/v2/pokemon?limit=${pokemonLimit}&offset=${pokemonOffset}`
@@ -41,11 +41,11 @@ const PokemonList = () => {
       } catch (error) {
          console.error(error);
       }
-   };
+   }, [pokemonLimit, pokemonOffset]);
 
    useEffect(() => {
       fetchPokemonList();
-   }, [pokemonLimit, pokemonOffset]); // Correct dependencies
+   }, [fetchPokemonList]);
 
    return (
       <div className="flex flex-wrap gap-4 h-full">
