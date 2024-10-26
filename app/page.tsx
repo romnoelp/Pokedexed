@@ -23,12 +23,9 @@ type PokemonData = {
 
 const Home = () => {
    const [searchedPokemon, setSearchedPokemon] = useState("");
-   const [pokemonLimit, setPokemonLimit] = useState(20);
-   const [pokemonOffset, setPokemonOffset] = useState(0);
-   const [pokemonResult, setPokemonResult] = useState<
-      PokemonData | undefined
-   >();
+   const [pokemonResult, setPokemonResult] = useState<PokemonData>();
    const [pokemonSprite, setPokemonSprite] = useState("");
+
    const handleSearchPokemon = (value: string) => {
       setSearchedPokemon(value);
    };
@@ -61,24 +58,41 @@ const Home = () => {
    }, [searchedPokemon]);
 
    return (
-      <div className="flex p-12 h-screen">
-         <div className="flex flex-col w-full gap-4">
+      <div className="flex p-6 sm:p-12 h-screen overflow-hidden">
+         <div className="flex flex-col w-full gap-4 h-full">
             <h1 className="text-3xl font-bold">Pokedexed</h1>
             <SearchBar onSearch={handleSearchPokemon} />
             <Card className="h-full flex flex-col">
                <CardHeader>
-                  <CardTitle>Here's the Pokemon/s you searched:</CardTitle>
-                  <CardDescription>
-                     The pokedex will show you various information about them.
-                  </CardDescription>
+                  {pokemonResult ? (
+                     <>
+                        <CardTitle>
+                           Here's the Pokémon/s you searched:
+                        </CardTitle>
+                        <CardDescription>
+                           The pokedex will show you various information about
+                           them.
+                        </CardDescription>
+                     </>
+                  ) : (
+                     <>
+                        <CardTitle>
+                           You haven't searched for anything yet.
+                        </CardTitle>
+                        <CardDescription>
+                           For the meantime, here are some pokemons that might
+                           peek your interest.
+                        </CardDescription>
+                     </>
+                  )}
                </CardHeader>
-               <CardContent className="flex-1 flex">
-                  <ScrollArea className="h-full w-full rounded-md border p-4">
+               <CardContent className="flex-1 min-h-0">
+                  <ScrollArea className="h-full max-h-[650px] w-full rounded-md border p-4 overflow-y-auto">
                      {pokemonResult ? (
                         <PokemonCard
-                           name={pokemonResult ? pokemonResult.name : ""}
-                           id={pokemonResult ? pokemonResult.id : ""}
-                           sprite={pokemonResult ? pokemonSprite : ""}
+                           name={pokemonResult.name}
+                           id={pokemonResult.id}
+                           sprite={pokemonSprite}
                         />
                      ) : (
                         <PokemonList />
